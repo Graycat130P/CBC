@@ -137,7 +137,7 @@ namespace CBC
                 aes.setAesIV(iv);
                 aes.setAesKey(key);
 
-                //暗号化処理
+                //復号処理
                 afterText.Text = aes.Decrypt(beforeText.Text);
 
                 passwordTextBox.Text = "";
