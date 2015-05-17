@@ -22,6 +22,7 @@ namespace CBC
             this.AesKey = System.Text.Encoding.ASCII.GetString(b);
         }
 
+        //パスワードから一意なkeyとIVを生成するメソッド
         public void GenerateKeyFromPassword(string password,
         int keySize, out byte[] key, int blockSize, out byte[] iv)
         {
@@ -42,6 +43,7 @@ namespace CBC
             iv = deriveBytes.GetBytes(blockSize / 8);
         }
 
+        //暗号化メソッド
         public string EnCrypt(string text)
         {
 
@@ -71,6 +73,7 @@ namespace CBC
             return (System.Convert.ToBase64String(encrypted));
         }
 
+        //復号メソッド
         public string Decrypt(string cryptText)
         {
             RijndaelManaged aes = new RijndaelManaged();

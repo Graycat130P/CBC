@@ -127,20 +127,28 @@ namespace CBC
         {
             if ((passwordTextBox.Text != "") && (beforeText.Text != ""))
             {
-                Crypt aes = new Crypt();
+                try
+                {
+                    Crypt aes = new Crypt();
 
-                //passwordからkeyとivを作成
-                RijndaelManaged rij = new RijndaelManaged();
-                byte[] iv, key;
-                aes.GenerateKeyFromPassword(passwordTextBox.Text, rij.KeySize, out key, rij.BlockSize, out iv);
+                    //passwordからkeyとivを作成
+                    RijndaelManaged rij = new RijndaelManaged();
+                    byte[] iv, key;
+                    aes.GenerateKeyFromPassword(passwordTextBox.Text, rij.KeySize, out key, rij.BlockSize, out iv);
 
-                aes.setAesIV(iv);
-                aes.setAesKey(key);
+                    aes.setAesIV(iv);
+                    aes.setAesKey(key);
 
-                //暗号化処理
-                afterText.Text = aes.Decrypt(beforeText.Text);
+                    //復号処理
+                    afterText.Text = aes.Decrypt(beforeText.Text);
 
-                passwordTextBox.Text = "";
+                    passwordTextBox.Text = "";
+                }
+                catch (System.FormatException)
+                {
+                    MessageBox.Show("Error:ファイルが暗号化されていません");
+                    passwordTextBox.Text = "";
+                }
             }
         }
     }
